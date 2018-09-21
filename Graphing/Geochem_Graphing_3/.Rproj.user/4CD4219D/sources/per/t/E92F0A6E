@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1534263637913.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3307362645",
+    "id" : "E92F0A6E",
+    "lastKnownWriteTime" : 1534263675,
+    "last_content_update" : -2147483648,
+    "path" : "P:/FPJ00/analysis/Combined_geochem/Graphing/Geochem_Graphing_3/R11_FilterLoop.R",
+    "project_path" : "R11_FilterLoop.R",
+    "properties" : {
+        "cursorPosition" : "3,30",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 11,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

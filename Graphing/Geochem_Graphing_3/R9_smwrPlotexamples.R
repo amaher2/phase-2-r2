@@ -1,0 +1,104 @@
+#Code from MakingGraphs.R that works
+#First have these packages
+#File names need to be updated
+
+
+library(smwrGraphs)
+library(ggplot2)
+library("reshape")
+library(dplyr)
+
+#Then bring the data in
+names(g.all2)get 
+g.all2$srsname[1]
+sapply(g.all2,class)
+g.all2 %>% mutate_if(is.factor, as.character) -> g.all2
+
+g.all2<-g.all2[with(g.all2,order(Site_Name,MeanSampleDepth_ftBLS)),]
+g.all2
+
+#Filtering to get certain analytes from certain sites
+Sodium <- filter(g.all2, srsname == "Sodium")
+Chloride <- filter(g.all2, srsname == "Chloride")
+SodiumOlivia <- filter(Sodium, Site_name == "Olivia")
+ChlorideOlivia <- filter(Chloride, Site_name == "Olivia")
+ChlorideOliviaWG <- filter(ChlorideOlivia, medium_cd == "WG")
+ChlorideOliviaGW2 <- filter(ChlorideOliviaWG, meth_cd == "IC022")
+
+#Cannot make continous x and y unless all the values are numeric (now the ggplot2 code should work)
+sapply(ChlorideOliviaSelect, class)
+ChlorideOliviaSelect$result_va<-as.numeric(ChlorideOliviaSelect$result_va)
+
+#Example
+vignette(topic="LineScatter", package="smwrGraphs")
+
+#selecting what to graph 
+SodiumOliviaSelect2 <- select(SodiumOlivia, result_va)
+ChlorideOliviaSelect2 <- select(ChlorideOliviaGW2, MeanSampleDepth_ftBLS)
+
+#How to select x and y data for smwrgraphs xyPlot
+with(SodiumOliviaSelect, xyPlot(result_va, MeanSampleDepth_ftBLS))
+sapply(OliviaWG3H,class)
+
+OliviaWG3H$result_va<-as.numeric(OliviaWG3H$result_va)
+
+setPDF(layout = "landscape",basename = "geochemTest",multiplefiles = FALSE)
+setLayout(width = 2,height = 6)
+
+xmin<-0
+xmax<-max(OliviaWG3H$result_va)*1.1
+ymin<-0
+ymax<-max(OliviaWG3H$MeanSampleDepth_ftBLS*1.1)
+
+#xmax<-4
+#xmax<-if(xmax<1){
+#  round(xmax,1)
+#}else if (xmax>1&xmax<10){
+#round(xmax,0)
+#} else {
+#  round(xmax,-2)
+#}
+
+
+
+TritiumOlivia<-with(OliviaWG3H[OliviaWG3H$result_va>0.8,], 
+                    xyPlot(as.numeric(result_va), MeanSampleDepth_ftBLS,yaxis.rev = TRUE,xlabels.rotate=TRUE,xlabels=3,
+                           ytitle = "Depth below land surface, in feet",
+                           xtitle=paste(OliviaWG3H$srsname[1],", in ", OliviaWG3H$parameter_units[1],sep=""),
+                           yaxis.range = c(ymin,ymax),
+                           xaxis.range=c(xmin,xmax)))
+#TritiumOlivia<-with(OliviaWG3H[OliviaWG3H$result_va==0.8,],addXY(x = as.numeric(result_va), y=MeanSampleDepth_ftBLS*-1,
+#                                                  Plot=list(what="points",symbol="circle",filled=FALSE)))
+
+
+#TritiumOlivia<-with(OliviaWG3H, xyPlot(as.numeric(result_va), MeanSampleDepth_ftBLS,yaxis.rev = TRUE,ytitle = "Depth below land surace, in feet",
+#                                       xtitle="Tritium, in tritium units"))
+
+#abline(v=0.8,col="gray",lty=2)
+legend("bottomright",legend = c("ND = non-detect"," "),cex=.75,bty = "n")
+text(x=OliviaWG3H$result_va[OliviaWG3H$remark_cd=="<"],y=-1*OliviaWG3H$MeanSampleDepth_ftBLS[OliviaWG3H$result_va==0.8],"ND")
+mtext(text = paste(OliviaWG3H$srsname[1]," at ",OliviaWG3H$Site_name[1],sep=""),side=3,line = 1)
+dev.off()
+
+), 
+addAxisLabels("left", current, title = "Depth BLS (ft)", labels = TRUE),
+setLayout(width = 4, height = 6, num.cols = max(1, 6(3)),
+          num.rows = max(1, 6(3)), num.graphs = num.rows * num.cols,
+          explanation = NULL, shared.x = -1, shared.y = -1, yleft = 3.5,
+          yright = 2, xbottom = 3.2, xtop = 2),
+setPlot(current, name = "", what = "lines", type = "solid",
+        width = "standard", symbol = "circle", filled = TRUE, size = 0.09,
+        color = "black", area.color = NA, area.border = NA))
+
+
+#Code gotten from online listing more graph info
+xyPlot(x, y, Plot = list(name = "", what =
+                           "points", type = "solid", width = "standard", symbol = "circle", filled =
+                           TRUE, size = 0.09, color = "black"), yaxis.log = FALSE, yaxis.rev = FALSE,
+       yaxis.range = c(NA, NA), xaxis.log = FALSE, xaxis.range = c(NA, NA),
+       ylabels = 7, xlabels = 7, xtitle = deparse(substitute(x)),
+       ytitle = deparse(substitute(y)), caption = "", margin = c(NA, NA, NA,
+                                                                 NA))
+
+
+

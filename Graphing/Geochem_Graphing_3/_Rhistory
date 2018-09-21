@@ -1,0 +1,328 @@
+#Loop
+library(smwrGraphs)
+QWgraphData2 <- read.csv("P:/FPJ00/analysis/Combined_geochem/Graphing/InputDatasets/QwExport3.csv")
+sapply(QWgraphData2, class)
+QWgraphData2 %>% mutate_if(is.factor, as.character) -> QWgraphData2
+sapply(QWgraphData2, class)
+QWgraphData2$result_va<-as.numeric(QWgraphData2$result_va)
+library(dplyr)
+QWgraphData2 %>% mutate_if(is.factor, as.character) -> QWgraphData2
+sapply(QWgraphData2, class)
+QWgraphData2$result_va<-as.numeric(QWgraphData2$result_va)
+sapply(QWgraphData2, class)
+#Loop
+library(smwrGraphs)
+library(dplyr)
+QWgraphData2 <- read.csv("P:/FPJ00/analysis/Combined_geochem/Graphing/InputDatasets/QwExport3.csv")
+sapply(QWgraphData2, class)
+QWgraphData2 %>% mutate_if(is.factor, as.character) -> QWgraphData2
+sapply(QWgraphData2, class)
+QWgraphData2$result_va<-as.numeric(QWgraphData2$result_va)
+QWgraphData2<-QWgraphData2[with(QWgraphData2,order(Site_name,MeanSampleDepth_ftBLS)),]
+g.all2<-g.all2[with(g.all2,order(Site_Name,MeanSampleDepth_ftBLS)),]
+QWgraphData2<-QWgraphData2[with(QWgraphData2,order(Site_name,MeanSampleDepth_ftBLS)),]
+QWgraphData2<-QWgraphData2[with(QWgraphData2,order(Site_Name,MeanSampleDepth_ftBLS)),]
+#Cations
+unique(QWgraphData2$srsname[QWgraphData2$medium_cd=="WG"])
+cations<-c("Calcium","Magnesium","Sodium","Manganese","Iron")
+parm<-c("Calcium",
+"Silica",
+"Phosphorus",
+"Total dissolved solids",
+"d18O",
+"Bicarbonate" ,
+"Nitrate" ,
+"Tritium" ,
+"Magnesium" ,
+"Carbonate (CO3)" ,
+"Sulfate" ,
+"Alkalinity",
+"Ammonia and ammonium",
+"Temperature_ water",
+"Inorganic nitrogen (nitrate and nitrite)",
+"Oxygen",
+"Total hardness -- SDWA NPDWR",
+"Bromide" ,
+"Potassium" ,
+"Nitrite" ,
+"Carbon dioxide",
+"pH" ,
+"Fluoride",
+"Chloride",
+"Specific conductance",
+"Sodium_ percent total cations" ,
+"Iron",
+"dD",
+"Sodium",
+"Manganese" ,
+"Hardness_ non-carbonate" ,
+"Acetate" ,
+"Phosphate" ,
+"Cl.Br" ,
+"Formate" ,
+"Thiosulfate")
+a<-"Calcium"
+s<-"Olivia"
+QWgraphData2[is.na(QWgraphData2$Site_name),]
+setPDF(layout = "landscape",basename = "qwprofiles",multiplefiles = FALSE)
+setLayout(width = c(1.5,1.5,1.5,1.5,1.5),height = 6)
+plot(0,0)
+for(s in c("Cromwell","Litchfield","Olivia","HFC")) {
+tmp.df<-QWgraphData2[QWgraphData2$Site_name==s&QWgraphData2$medium_cd=="WG",]
+for(a in cations){
+tmp.df2<-tmp.df[tmp.df$srsname==a,]
+with(tmp.df2,xyPlot(x =result_va ,y=MeanSampleDepth_ftBLS,yaxis.rev = TRUE,
+caption = paste(tmp.df2$Site_name[1],tmp.df2$srsname[1], tmp.df2$parameter_units[1]),Plot=list(what="points")))
+with(tmp.df2,addXY(x =result_va ,y=MeanSampleDepth_ftBLS*-1,Plot=list(what="lines")))
+}
+}
+dev.off()
+#More graphs Anions
+unique(QWgraphData2$srsname[QWgraphData2$medium_cd=="WG"])
+anions<-c("Chloride","Bromide","Nitrate","Fluoride","Sulfate")
+parm<-c("Calcium",
+"Silica",
+"Phosphorus",
+"Total dissolved solids",
+"d18O",
+"Bicarbonate" ,
+"Nitrate" ,
+"Tritium" ,
+"Magnesium" ,
+"Carbonate (CO3)" ,
+"Sulfate" ,
+"Alkalinity",
+"Ammonia and ammonium",
+"Temperature_ water",
+"Inorganic nitrogen (nitrate and nitrite)",
+"Oxygen",
+"Total hardness -- SDWA NPDWR",
+"Bromide" ,
+"Potassium" ,
+"Nitrite" ,
+"Carbon dioxide",
+"pH" ,
+"Fluoride",
+"Chloride",
+"Specific conductance",
+"Sodium_ percent total cations" ,
+"Iron",
+"dD",
+"Sodium",
+"Manganese" ,
+"Hardness_ non-carbonate" ,
+"Acetate" ,
+"Phosphate" ,
+"Cl.Br" ,
+"Formate" ,
+"Thiosulfate")
+a<-"Chloride"
+s<-"Olivia"
+QWgraphData2[is.na(QWgraphData2$Site_name),]
+setPDF(layout = "landscape",basename = "qwprofiles2",multiplefiles = FALSE)
+setLayout(width = c(1.5,1.5,1.5,1.5,1.5),height = 6)
+plot(0,0)
+s<-"Litchfield"
+a<-"Bromide"
+for(s in c("Cromwell","Litchfield","Olivia","HFC")) {
+tmp.df<-QWgraphData2[QWgraphData2$Site_name==s&QWgraphData2$medium_cd=="WG",]
+for(a in anions){
+tmp.df2<-tmp.df[tmp.df$srsname==a,]
+with(tmp.df2[tmp.df2$anl_ent_cd=="USGSNWQL",],xyPlot(x =result_va ,y=MeanSampleDepth_ftBLS,yaxis.rev = TRUE,
+caption = paste(tmp.df2$Site_name[1],tmp.df2$srsname[1], tmp.df2$parameter_units[1]),Plot=list(what="points")))
+with(tmp.df2[tmp.df2$anl_ent_cd=="USGSNWQL",],addXY(x =result_va ,y=MeanSampleDepth_ftBLS*-1,Plot=list(what="lines")))
+with(tmp.df2[tmp.df2$anl_ent_cd=="Rick A. Knurr Ion Chrom Analytical",],
+addXY(x=result_va,y=MeanSampleDepth_ftBLS*-1,Plot=list(what="points",color="red")))
+}
+}
+dev.off()
+unique(QWgraphData2$srsname[QWgraphData2$medium_cd=="WG"])
+cations<-c("Calcium","Magnesium","Sodium","Manganese","Iron")
+parm<-c("Calcium",
+"Silica",
+"Phosphorus",
+"Total dissolved solids",
+"d18O",
+"Bicarbonate" ,
+"Nitrate" ,
+"Tritium" ,
+"Magnesium" ,
+"Carbonate (CO3)" ,
+"Sulfate" ,
+"Alkalinity",
+"Ammonia and ammonium",
+"Temperature_ water",
+"Inorganic nitrogen (nitrate and nitrite)",
+"Oxygen",
+"Total hardness -- SDWA NPDWR",
+"Bromide" ,
+"Potassium" ,
+"Nitrite" ,
+"Carbon dioxide",
+"pH" ,
+"Fluoride",
+"Chloride",
+"Specific conductance",
+"Sodium_ percent total cations" ,
+"Iron",
+"dD",
+"Sodium",
+"Manganese" ,
+"Hardness_ non-carbonate" ,
+"Acetate" ,
+"Phosphate" ,
+"Cl.Br" ,
+"Formate" ,
+"Thiosulfate")
+a<-"Calcium"
+s<-"Olivia"
+QWgraphData2[is.na(QWgraphData2$Site_name),]
+QWgraphData2[is.na(QWgraphData2$Site_name),]
+setPDF(layout = "landscape",basename = "qwprofiles",multiplefiles = FALSE)
+setLayout(width = c(1.5,1.5,1.5,1.5,1.5),height = 6)
+plot(0,0)
+for(s in c("Cromwell","Litchfield","Olivia","HFC")) {
+tmp.df<-QWgraphData2[QWgraphData2$Site_name==s&QWgraphData2$medium_cd=="WG",]
+for(a in cations){
+tmp.df2<-tmp.df[tmp.df$srsname==a,]
+with(tmp.df2,xyPlot(x =result_va ,y=MeanSampleDepth_ftBLS,yaxis.rev = TRUE,
+caption = paste(tmp.df2$Site_name[1],tmp.df2$srsname[1], tmp.df2$parameter_units[1]),Plot=list(what="points")))
+with(tmp.df2,addXY(x =result_va ,y=MeanSampleDepth_ftBLS*-1,Plot=list(what="lines")))
+}
+}
+dev.off()
+dev.off()
+dev.off()
+#More graphs Anions
+unique(QWgraphData2$srsname[QWgraphData2$medium_cd=="WG"])
+anions<-c("Chloride","Bromide","Nitrate","Fluoride","Sulfate")
+dev.off()
+#Loop
+library(smwrGraphs)
+library(ggplot2)
+library("reshape")
+library(dplyr)
+QWgraphData2 <- read.csv("P:/FPJ00/analysis/Combined_geochem/Graphing/InputDatasets/QwExport3.csv")
+sapply(QWgraphData2, class)
+QWgraphData2 %>% mutate_if(is.factor, as.character) -> QWgraphData2
+sapply(QWgraphData2, class)
+QWgraphData2$result_va<-as.numeric(QWgraphData2$result_va)
+QWgraphData2<-QWgraphData2[with(QWgraphData2,order(Site_Name,MeanSampleDepth_ftBLS)),]
+View(QWgraphData2)
+unique(QWgraphData2$srsname[QWgraphData2$medium_cd=="WG"])
+cations<-c("Calcium","Magnesium","Sodium","Manganese","Iron")
+parm<-c("Calcium",
+"Silica",
+"Phosphorus",
+"Total dissolved solids",
+"d18O",
+"Bicarbonate" ,
+"Nitrate" ,
+"Tritium" ,
+"Magnesium" ,
+"Carbonate (CO3)" ,
+"Sulfate" ,
+"Alkalinity",
+"Ammonia and ammonium",
+"Temperature_ water",
+"Inorganic nitrogen (nitrate and nitrite)",
+"Oxygen",
+"Total hardness -- SDWA NPDWR",
+"Bromide" ,
+"Potassium" ,
+"Nitrite" ,
+"Carbon dioxide",
+"pH" ,
+"Fluoride",
+"Chloride",
+"Specific conductance",
+"Sodium_ percent total cations" ,
+"Iron",
+"dD",
+"Sodium",
+"Manganese" ,
+"Hardness_ non-carbonate" ,
+"Acetate" ,
+"Phosphate" ,
+"Cl.Br" ,
+"Formate" ,
+"Thiosulfate")
+a<-"Calcium"
+s<-"Olivia"
+QWgraphData2[is.na(QWgraphData2$Site_name),]
+QWgraphData2[is.na(QWgraphData2$Site_Name),]
+setPDF(layout = "landscape",basename = "qwprofiles",multiplefiles = FALSE)
+setLayout(width = c(1.5,1.5,1.5,1.5,1.5),height = 6)
+plot(0,0)
+for(s in c("Cromwell","Litchfield","Olivia","HFC")) {
+tmp.df<-QWgraphData2[QWgraphData2$Site_name==s&QWgraphData2$medium_cd=="WG",]
+for(a in cations){
+tmp.df2<-tmp.df[tmp.df$srsname==a,]
+with(tmp.df2,xyPlot(x =result_va ,y=MeanSampleDepth_ftBLS,yaxis.rev = TRUE,
+caption = paste(tmp.df2$Site_name[1],tmp.df2$srsname[1], tmp.df2$parameter_units[1]),Plot=list(what="points")))
+with(tmp.df2,addXY(x =result_va ,y=MeanSampleDepth_ftBLS*-1,Plot=list(what="lines")))
+}
+}
+dev.off()
+a<-"Calcium"
+s<-"Olivia"
+QWgraphData2[is.na(QWgraphData2$Site_Name),]
+setPDF(layout = "landscape",basename = "qwprofiles",multiplefiles = FALSE)
+setLayout(width = c(1.5,1.5,1.5,1.5,1.5),height = 6)
+plot(0,0)
+dev.off()
+#Cations
+unique(QWgraphData2$srsname[QWgraphData2$medium_cd=="WG"])
+cations<-c("Calcium","Magnesium","Sodium","Manganese","Iron")
+parm<-c("Calcium",
+"Silica",
+"Phosphorus",
+"Total dissolved solids",
+"d18O",
+"Bicarbonate" ,
+"Nitrate" ,
+"Tritium" ,
+"Magnesium" ,
+"Carbonate (CO3)" ,
+"Sulfate" ,
+"Alkalinity",
+"Ammonia and ammonium",
+"Temperature_ water",
+"Inorganic nitrogen (nitrate and nitrite)",
+"Oxygen",
+"Total hardness -- SDWA NPDWR",
+"Bromide" ,
+"Potassium" ,
+"Nitrite" ,
+"Carbon dioxide",
+"pH" ,
+"Fluoride",
+"Chloride",
+"Specific conductance",
+"Sodium_ percent total cations" ,
+"Iron",
+"dD",
+"Sodium",
+"Manganese" ,
+"Hardness_ non-carbonate" ,
+"Acetate" ,
+"Phosphate" ,
+"Cl.Br" ,
+"Formate" ,
+"Thiosulfate")
+a<-"Calcium"
+s<-"Olivia"
+QWgraphData2[is.na(QWgraphData2$Site_Name),]
+setPDF(layout = "landscape",basename = "qwprofiles",multiplefiles = FALSE)
+setLayout(width = c(1.5,1.5,1.5,1.5,1.5),height = 6)
+plot(0,0)
+for(s in c("Cromwell","Litchfield","Olivia","HFC")) {
+tmp.df<-QWgraphData2[QWgraphData2$Site_Name==s&QWgraphData2$medium_cd=="WG",]
+for(a in cations){
+tmp.df2<-tmp.df[tmp.df$srsname==a,]
+with(tmp.df2,xyPlot(x =result_va ,y=MeanSampleDepth_ftBLS,yaxis.rev = TRUE,
+caption = paste(tmp.df2$Site_Name[1],tmp.df2$srsname[1], tmp.df2$parameter_units[1]),Plot=list(what="points")))
+with(tmp.df2,addXY(x =result_va ,y=MeanSampleDepth_ftBLS*-1,Plot=list(what="lines")))
+}
+}
+dev.off()

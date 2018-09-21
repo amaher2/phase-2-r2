@@ -1,0 +1,56 @@
+#Code from MakingGraphs.R that works
+#First have these packages
+#File names need to be updated
+
+library(smwrGraphs)
+library(ggplot2)
+library("reshape")
+library(dplyr)
+
+#Then bring the data in
+names(g.all2)get 
+g.all2$srsname[1]
+sapply(g.all2,class)
+g.all2 %>% mutate_if(is.factor, as.character) -> g.all2
+
+g.all2<-g.all2[with(g.all2,order(Site_Name,MeanSampleDepth_ftBLS)),]
+g.all2
+
+#Filtering to get certain analytes from certain sites
+Sodium <- filter(g.all2, srsname == "Sodium")
+Chloride <- filter(g.all2, srsname == "Chloride")
+SodiumOlivia <- filter(Sodium, Site_name == "Olivia")
+ChlorideOlivia <- filter(Chloride, Site_name == "Olivia")
+ChlorideOliviaWG <- filter(ChlorideOlivia, medium_cd == "WG")
+ChlorideOliviaGW2 <- filter(ChlorideOliviaWG, meth_cd == "IC022")
+
+#selecting what to graph 
+SodiumOliviaSelect <- select(SodiumOlivia, MeanSampleDepth_ftBLS, result_va)
+ChlorideOliviaSelect <- select(ChlorideOliviaGW2, MeanSampleDepth_ftBLS, result_va)
+
+#Cannot make continous x and y unless all the values are numeric (now the ggplot2 code should work)
+sapply(ChlorideOliviaSelect, class)
+ChlorideOliviaSelect$result_va<-as.numeric(ChlorideOliviaSelect$result_va)
+
+#trying this again (this is a simpler version of the ggplot2 code)
+Ocl <- ggplot(ChlorideOliviaSelect, aes(x=result_va, y=MeanSampleDepth_ftBLS))+ geom_point()
+Ocl
+Ocl + xlim(0,50)+ylim(0,250)
+#reversing y scale
+Ocl + scale_y_reverse()
+
+#This order allows titles and to reverse the y scale
+Ocl_scatter <- Ocl + labs(title="Olivia Chloride (mg/L) vs. Mean Sample Depth (ft)", x="Chloride (mg/L)", y="Mean Sample Depth (ft)")
+Ocl_scatter
+Ocl_scatter + xlim(0,50)+ylim(0,250)
+Ocl_scatter + scale_y_reverse()
+
+
+#Need to figure out graph style desired
+#This removes the grid in the background
+Ocl_scatter <- Ocl + labs(title="Olivia Chloride (mg/L) vs. Mean Sample Depth (ft)", x="Chloride (mg/L)", y="Mean Sample Depth (ft)") + theme_bw() + theme(panel.border = element_rect(colour = "black", fill=NA, size = 1), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black", size = 1))
+Ocl_scatter
+Ocl_scatter + scale_y_reverse()
+
+
+#Now need to figure out how to make this into a loop, to create many graphs

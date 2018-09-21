@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1534263734283.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1523102446",
+    "id" : "4425D5AA",
+    "lastKnownWriteTime" : 1534263112,
+    "last_content_update" : 1534263112,
+    "path" : "P:/FPJ00/analysis/Combined_geochem/Graphing/Geochem_Graphing_3/R7_NitratePlots.R",
+    "project_path" : "R7_NitratePlots.R",
+    "properties" : {
+        "cursorPosition" : "2,26",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 11,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

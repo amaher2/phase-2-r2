@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1534189759848.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3478017408",
+    "id" : "5F797A55",
+    "lastKnownWriteTime" : 1534261171,
+    "last_content_update" : -2147483648,
+    "path" : "P:/FPJ00/analysis/Combined_geochem/Graphing/Geochem_Graphing_3/R1_GraphLoop.R",
+    "project_path" : "R1_GraphLoop.R",
+    "properties" : {
+        "cursorPosition" : "3,5",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1534262701697.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3344552955",
+    "id" : "114BA77C",
+    "lastKnownWriteTime" : 1534262729,
+    "last_content_update" : -2147483648,
+    "path" : "P:/FPJ00/analysis/Combined_geochem/Graphing/Geochem_Graphing_3/R4_NaClPlots.R",
+    "project_path" : "R4_NaClPlots.R",
+    "properties" : {
+        "cursorPosition" : "1,24",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

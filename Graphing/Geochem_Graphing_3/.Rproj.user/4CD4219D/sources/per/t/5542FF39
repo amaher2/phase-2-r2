@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1534262523663.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1245043365",
+    "id" : "5542FF39",
+    "lastKnownWriteTime" : 1534262647,
+    "last_content_update" : -2147483648,
+    "path" : "P:/FPJ00/analysis/Combined_geochem/Graphing/Geochem_Graphing_3/R3_ClBrvsClplots.R",
+    "project_path" : "R3_ClBrvsClplots.R",
+    "properties" : {
+        "cursorPosition" : "1,17",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
